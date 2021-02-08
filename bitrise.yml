@@ -59,17 +59,6 @@ workflows:
             coverage=true
             coverageFile=/sdcard/coverage.ec
         - test_devices: 'NexusLowRes,29,en,portrait'
-    - script@1:
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            ls -al $VDTESTING_DOWNLOADED_FILES_DIR
-            echo $VDTESTING_DOWNLOADED_FILES_DIR
     - deploy-to-bitrise-io@1:
         inputs:
         - notify_user_groups: none
@@ -132,24 +121,19 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@4: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
     - install-missing-android-tools@2:
         inputs:
         - gradlew_path: $PROJECT_LOCATION/gradlew
-    - change-android-versioncode-and-versionname@1:
-        inputs:
-        - build_gradle_path: $PROJECT_LOCATION/$MODULE/build.gradle
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
-        - variant: $VARIANT
+        - variant: release
     - android-unit-test@1:
         inputs:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
-        - variant: $VARIANT
+        - variant: release
     - android-build@0:
         inputs:
         - project_location: $PROJECT_LOCATION
@@ -158,7 +142,7 @@ workflows:
         - variant: release
     - sign-apk@1:
         run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
-    - deploy-to-bitrise-io@1:
         inputs:
-        - notify_user_groups: none
+        - use_apk_signer: 'true'
+    - deploy-to-bitrise-io@1: {}
     - cache-push@2: {}
