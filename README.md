@@ -8,8 +8,6 @@ This is a sample Android project that demonstrates a typical [Bitrise](https://b
 
 ### Bitrise workflow
 
-There are two Bitrise workflows configured: `primary` and `deploy`. `primary` is triggered by any commit on any branch, while `deploy` can be started manually. The `primary` workflow builds and tests only the debug variant, meanwhile `deploy` builds a release app and signs it with the release signing config.
-
 #### `primary` workflow
 
 <details>
@@ -21,19 +19,15 @@ There are two Bitrise workflows configured: `primary` and `deploy`. `primary` is
 This workflow is automatically run by Bitrise on every commit on every branch. This builds and tests only the debug variant for faster results. In addition to running lint and unit tests, the [Virtual Device Testing](https://www.bitrise.io/integrations/steps/virtual-device-testing-for-android) step runs UI tests on a virtual device.
 
 #### `deploy` workflow
+<details>
+<summary>Workflow steps</summary>
 
-#### Release builds
+![Deploy workflow](docs/workflow-deploy.png)
+</details>
 
-- R8 obfuscation and minification enabled in `build.gradle`
-- No signing config in Gradle, builds are signed by the Sign step on Bitrise
-- Signing keystore and passwords are stored securely on Bitrise
-- Auto-incrementing `versionCode` based on the [Bitrise build number](https://devcenter.bitrise.io/builds/build-numbering-and-app-versioning/)
+This workflow builds a release app and signs it with the release signing config (signing key and passwords are stored as secrets on Bitrise). The signing is done by the Sign step, so there is no signing configuration defined in `build.gradle`.
 
-### Testing
-
-#### UI tests
-
-UI tests are run on emulators with the [Virtual Device Testing](https://www.bitrise.io/integrations/steps/virtual-device-testing-for-android) step.
+You can run this workflow manually on Bitrise, or you can set up an automatic trigger. Additionally, you can [configure auto-incrementing version numbers with an extra step](https://devcenter.bitrise.io/builds/build-numbering-and-app-versioning/).
 
 ## Advanced use cases
 
