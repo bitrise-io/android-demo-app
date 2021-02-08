@@ -10,6 +10,18 @@ This is a sample Android project that demonstrates a typical [Bitrise](https://b
 
 There are two Bitrise workflows configured: `primary` and `deploy`. `primary` is triggered by any commit on any branch, while `deploy` can be started manually. The `primary` workflow builds and tests only the debug variant, meanwhile `deploy` builds a release app and signs it with the release signing config.
 
+#### `primary` workflow
+
+<details>
+<summary>Workflow steps</summary>
+
+![Primary workflow](docs/workflow-primary.png)
+</details>
+
+This workflow is automatically run by Bitrise on every commit on every branch. This builds and tests only the debug variant for faster results. In addition to running lint and unit tests, the [Virtual Device Testing](https://www.bitrise.io/integrations/steps/virtual-device-testing-for-android) step runs UI tests on a virtual device.
+
+#### `deploy` workflow
+
 #### Release builds
 
 - R8 obfuscation and minification enabled in `build.gradle`
