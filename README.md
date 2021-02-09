@@ -6,9 +6,9 @@ This is a sample Android project that demonstrates a typical [Bitrise](https://b
 
 ## Project setup and config
 
-### Bitrise workflow
+### Bitrise Workflow
 
-#### `primary` workflow
+#### `primary` Workflow
 
 <details>
 <summary>Workflow steps</summary>
@@ -16,16 +16,16 @@ This is a sample Android project that demonstrates a typical [Bitrise](https://b
 ![Primary workflow](docs/workflow-primary.png)
 </details>
 
-This workflow is automatically run by Bitrise on every commit on every branch. This builds and tests only the debug variant for faster results. In addition to running lint and unit tests, the [Virtual Device Testing](https://www.bitrise.io/integrations/steps/virtual-device-testing-for-android) step runs UI tests on a virtual device.
+This workflow is automatically run by Bitrise on every commit on every branch. This builds and tests only the debug variant for faster results. In addition to running lint and unit tests, the [Virtual Device Testing](https://www.bitrise.io/integrations/steps/virtual-device-testing-for-android) Step runs UI tests on a virtual device.
 
-#### `deploy` workflow
+#### `deploy` Workflow
 <details>
 <summary>Workflow steps</summary>
 
 ![Deploy workflow](docs/workflow-deploy.png)
 </details>
 
-This workflow builds a release app and signs it with the release signing config (signing key and passwords are stored as secrets on Bitrise). The signing is done by the Sign step, so there is no signing configuration defined in `build.gradle`.
+This Workflow builds a release app and signs it with the release signing config (signing key and passwords are stored as secrets on Bitrise). The signing is done by the **[Android Sign]**(https://www.bitrise.io/integrations/steps/sign-apk) Step, so there is no signing configuration defined in `build.gradle`.
 
 You can run this workflow manually on Bitrise, or you can set up an automatic trigger. Additionally, you can [configure auto-incrementing version numbers with an extra step](https://devcenter.bitrise.io/builds/build-numbering-and-app-versioning/).
 
