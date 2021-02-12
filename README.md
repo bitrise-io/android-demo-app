@@ -25,7 +25,7 @@ This workflow is automatically run by Bitrise on every commit on every branch. T
 ![Deploy workflow](docs/workflow-deploy.png)
 </details>
 
-This Workflow builds a release app and signs it with the release signing config (signing key and passwords are stored as secrets on Bitrise). The signing is done by the **[Android Sign]**(https://www.bitrise.io/integrations/steps/sign-apk) Step, so there is no signing configuration defined in `build.gradle`.
+This Workflow builds a release app and signs it with the release signing config (signing key and passwords are stored as secrets on Bitrise). The signing is done by the [**Android Sign**](https://www.bitrise.io/integrations/steps/sign-apk) Step, so there is no signing configuration defined in `build.gradle`.
 
 You can run this workflow manually on Bitrise, or you can set up an automatic trigger. Additionally, you can [configure auto-incrementing version numbers with an extra step](https://devcenter.bitrise.io/builds/build-numbering-and-app-versioning/).
 
