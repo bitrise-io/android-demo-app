@@ -58,7 +58,7 @@ workflows:
         - environment_variables: |-
             coverage=true
             coverageFile=/sdcard/coverage.ec
-        - test_devices: 'NexusLowRes,S,en,portrait'
+        - test_devices: 'NexusLowRes,30,en,portrait'
     - deploy-to-bitrise-io@1:
         inputs:
         - notify_user_groups: none
