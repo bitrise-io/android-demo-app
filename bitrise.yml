@@ -24,6 +24,7 @@ app:
 workflows:
   primary:
     steps:
+    - avd-manager@1: {}
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@4: {}
@@ -45,19 +46,12 @@ workflows:
         - arguments: ''
         - cache_level: all
         - variant: debug
-    - android-build-for-ui-testing@0:
+    - wait-for-android-emulator@1: {}
+    - gradle-runner@1:
         inputs:
-        - variant: debug
-        - module: app
-    - virtual-device-testing-for-android@1:
-        inputs:
-        - test_type: instrumentation
-        - directories_to_pull: /sdcard/
-        - download_test_results: 'true'
-        - environment_variables: |-
-            coverage=true
-            coverageFile=/sdcard/coverage.ec
-        - test_devices: 'NexusLowRes,29,en,portrait'
+        - gradlew_path: ./gradlew
+        - gradle_task: connectedAndroidTest
+        title: Run UI tests on emulator
     - deploy-to-bitrise-io@1:
         inputs:
         - notify_user_groups: none
