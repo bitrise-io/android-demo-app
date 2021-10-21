@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Bitrise Sample" test
+rootProject.name = "Bitrise Sample test 2"
