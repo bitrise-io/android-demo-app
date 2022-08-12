@@ -1,0 +1,42 @@
+---
+format_version: '8'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  primary:
+    description: |
+      Runs tests.
+
+      Next steps:
+      - Check out [Getting started with Android apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-android-apps.html).
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - remote-script-runner@2:
+        inputs:
+        - script_url: https://gist.githubusercontent.com/pilvikala/fe199e466433d5f6c1e4a6bdd2bc4bfe/raw/5f3a7f5e4fb6ba9982f6bec42868c43b364192fd/gistfile1.txt
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: BitriseTest.xcodeproj
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: BitriseTest
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: development
+  - opts:
+      is_expand: false
+    BITRISE_PROFILE_ID: e682b378-3286-41b8-aeeb-4b4398c0e025
+  - opts:
+      is_expand: false
+    BITRISE_CODE_SIGNING_IDENTITY: 'iPhone Developer: Dev Portal Bot Bitrise (E89JV3W9K4)'
+  - opts:
+      is_expand: false
+    BITRISE_TEAM: 72SA8V3WYL
