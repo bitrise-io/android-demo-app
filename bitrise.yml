@@ -1,5 +1,5 @@
 ---
-format_version: '8'
+format_version: '11'
 default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
 project_type: android
 trigger_map:
@@ -9,30 +9,17 @@ trigger_map:
   workflow: primary
 app:
   envs:
-  - opts:
-      is_expand: false
-    PROJECT_LOCATION: .
-  - opts:
-      is_expand: false
-    MODULE: app
-  - opts:
-      is_expand: false
-    VARIANT: ''
-  - opts:
-      is_expand: false
-    GRADLEW_PATH: ./gradlew
+  - PROJECT_LOCATION: .
+  - MODULE: app
+  - VARIANT: ''
+  - GRADLEW_PATH: ./gradlew
 workflows:
   primary:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4: {}
+    - git-clone@6: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
-    - install-missing-android-tools@2:
-        inputs:
-        - gradlew_path: $PROJECT_LOCATION/gradlew
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
@@ -59,7 +46,7 @@ workflows:
             coverage=true
             coverageFile=/sdcard/coverage.ec
         - test_devices: 'NexusLowRes,29,en,portrait'
-    - deploy-to-bitrise-io@1:
+    - deploy-to-bitrise-io@2:
         inputs:
         - notify_user_groups: none
     - cache-push@2: {}
@@ -119,11 +106,8 @@ workflows:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4: {}
+    - git-clone@6: {}
     - cache-pull@2: {}
-    - install-missing-android-tools@2:
-        inputs:
-        - gradlew_path: $PROJECT_LOCATION/gradlew
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
@@ -144,5 +128,5 @@ workflows:
         run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
         inputs:
         - use_apk_signer: 'true'
-    - deploy-to-bitrise-io@1: {}
+    - deploy-to-bitrise-io@2: {}
     - cache-push@2: {}
