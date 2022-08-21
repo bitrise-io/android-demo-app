@@ -1,4 +1,4 @@
-package io.bitrise.sample.android
+package io.bitrise.mydeploy.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
