@@ -7,7 +7,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "io.bitrise.sample.android"
+        applicationId "io.bitrise.mydeploy.android"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1
