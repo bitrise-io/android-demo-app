@@ -19,4 +19,9 @@ class ExampleUnitTest {
     fun addition_isIncorrect() {
         assertEquals(4, 2 + 3)
     }
+
+    @Test
+    fun addition_anotherFailingTest() {
+        assertEquals(4, 2 + 3)
+    }
 }
