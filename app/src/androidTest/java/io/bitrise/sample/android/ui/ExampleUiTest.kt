@@ -24,4 +24,22 @@ class HelloWorldEspressoTest {
         onView(withText("Hello World!")).check(matches(isDisplayed()))
         takeScreenshot("test_screenshot")
     }
+
+    @Test
+    fun helloWorldIsVisible1() {
+        onView(withText("Hello World!")).check(matches(isDisplayed()))
+        takeScreenshot("test_screenshot")
+    }
+
+    @Test
+    fun helloWorldIsVisible2() {
+        onView(withText("Hello World!")).check(matches(isDisplayed()))
+        takeScreenshot("test_screenshot")
+    }
+
+    @Test
+    fun helloWorldIsVisible3() {
+        onView(withText("Hello World!")).check(matches(isDisplayed()))
+        takeScreenshot("test_screenshot")
+    }
 }

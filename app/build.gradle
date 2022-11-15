@@ -30,6 +30,15 @@ android {
     testOptions {
         execution 'ANDROID_TEST_ORCHESTRATOR'
         animationsDisabled = true
+
+        devices {
+            pixel2 (com.android.build.api.dsl.ManagedVirtualDevice) {
+                device = "Pixel 2"
+                apiLevel = 30
+                systemImageSource = "google"
+                abi = "arm64"
+            }
+        }
     }
     kotlinOptions {
         jvmTarget = '1.8'
