@@ -18,8 +18,8 @@ workflows:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6: {}
-    - cache-pull@2: {}
+    - git-clone@8: {}
+    - restore-gradle-cache@1: {}
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
@@ -36,7 +36,7 @@ workflows:
     - deploy-to-bitrise-io@2:
         inputs:
         - notify_user_groups: none
-    - cache-push@2: {}
+    - save-gradle-cache@1: {}
   deploy:
     description: >
       ## How to get a signed APK
@@ -94,7 +94,6 @@ workflows:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6: {}
-    - cache-pull@2: {}
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
@@ -116,4 +115,3 @@ workflows:
         inputs:
         - use_apk_signer: 'true'
     - deploy-to-bitrise-io@2: {}
-    - cache-push@2: {}
