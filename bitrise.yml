@@ -27,22 +27,24 @@ workflows:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
         - cache_level: all
-        - variant: $BUILD_VARIANT
+        - variant: $VARIANT
     - android-unit-test@1:
         inputs:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
         - arguments: ''
         - cache_level: all
-        - variant: $BUILD_VARIANT
+        - variant: $VARIANT
   primary:
+    envs:
+    - VARIANT: debug
     before_run:
     - _test
     steps:
     - deploy-to-bitrise-io@2: {}
   deploy-demo:
     envs:
-    - BUILD_VARIANT: debug
+    - VARIANT: debug
     before_run:
     - _test
     steps:
@@ -52,7 +54,7 @@ workflows:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
         - build_type: apk
-        - variant: $BUILD_VARIANT
+        - variant: $VARIANT
     - deploy-to-bitrise-io@2:
         inputs:
         - notify_user_groups: none
@@ -111,7 +113,7 @@ workflows:
       The next change in your repository that matches any of your trigger map
       event will start **deploy** workflow.
     envs:
-    - BUILD_VARIANT: release
+    - VARIANT: release
     before_run:
     - _test
     steps:
@@ -120,7 +122,7 @@ workflows:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
         - build_type: aab
-        - variant: $BUILD_VARIANT
+        - variant: $VARIANT
     - sign-apk@1:
         run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
         inputs:
