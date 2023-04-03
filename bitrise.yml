@@ -11,6 +11,7 @@ app:
   envs:
   - PROJECT_LOCATION: .
   - MODULE: app
+  - VARIANT: debug
   - GRADLEW_PATH: ./gradlew
 workflows:
   _setup:
@@ -36,15 +37,11 @@ workflows:
         - cache_level: all
         - variant: $VARIANT
   primary:
-    envs:
-    - VARIANT: debug
     before_run:
     - _test
     steps:
     - deploy-to-bitrise-io@2: {}
   deploy-demo:
-    envs:
-    - VARIANT: debug
     before_run:
     - _test
     steps:
