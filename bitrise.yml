@@ -11,28 +11,47 @@ app:
   envs:
   - PROJECT_LOCATION: .
   - MODULE: app
-  - VARIANT: ''
+  - VARIANT: debug
   - GRADLEW_PATH: ./gradlew
 workflows:
-  primary:
+  _setup:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@8: {}
-    - restore-gradle-cache@1: {}
+  _test:
+    before_run:
+    - _setup
+    steps:
     - android-lint@0:
         inputs:
         - project_location: $PROJECT_LOCATION
-        - module: app
+        - module: $MODULE
         - cache_level: all
-        - variant: debug
+        - variant: $VARIANT
     - android-unit-test@1:
         inputs:
         - project_location: $PROJECT_LOCATION
-        - module: app
+        - module: $MODULE
         - arguments: ''
         - cache_level: all
-        - variant: debug
+        - variant: $VARIANT
+  primary:
+    before_run:
+    - _test
+    steps:
+    - deploy-to-bitrise-io@2: {}
+  deploy-demo:
+    before_run:
+    - _test
+    steps:
+    - restore-gradle-cache@1: {}
+    - android-build@0:
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - build_type: apk
+        - variant: $VARIANT
     - deploy-to-bitrise-io@2:
         inputs:
         - notify_user_groups: none
@@ -90,26 +109,17 @@ workflows:
 
       The next change in your repository that matches any of your trigger map
       event will start **deploy** workflow.
+    envs:
+    - VARIANT: release
+    before_run:
+    - _test
     steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6: {}
-    - android-lint@0:
-        inputs:
-        - project_location: $PROJECT_LOCATION
-        - module: $MODULE
-        - variant: release
-    - android-unit-test@1:
-        inputs:
-        - project_location: $PROJECT_LOCATION
-        - module: $MODULE
-        - variant: release
     - android-build@0:
         inputs:
         - project_location: $PROJECT_LOCATION
         - module: $MODULE
         - build_type: aab
-        - variant: release
+        - variant: $VARIANT
     - sign-apk@1:
         run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
         inputs:
