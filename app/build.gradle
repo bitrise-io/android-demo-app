@@ -96,3 +96,14 @@ tasks.whenTaskAdded { task ->
         }
     }
 }
+
+tasks.register('hello') {
+    doLast {
+        def message = System.getenv("MESSAGE")
+        if (message == null) {
+            println 'Hello world!'
+        } else {
+            println message
+        }
+    }
+}
