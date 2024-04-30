@@ -13,6 +13,9 @@ app:
   - MODULE: app
   - VARIANT: ''
   - GRADLEW_PATH: ./gradlew
+meta:
+  bitrise.io:
+    stack: linux-docker-android-22.04
 workflows:
   primary:
     steps:
