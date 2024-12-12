@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+    namespace "io.bitrise.sample.android"
+
     compileSdkVersion 33
 
     defaultConfig {
@@ -34,11 +36,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    // To enable writing screenshots to external storage
-    adbOptions {
+    installation {
         installOptions '-g', '-r'
     }
+
+    // To enable writing screenshots to external storage
 }
 
 dependencies {
