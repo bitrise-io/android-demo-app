@@ -1,2 +1,4 @@
-include ':app'
-rootProject.name = "Bitrise Sample"
+include ':feature:feature-name-1:data'
+include ':feature:feature-name-1:presentation'
+include ':feature:feature-name-2:data'
+rootProject.name = "Multi Module AAR Sample"
