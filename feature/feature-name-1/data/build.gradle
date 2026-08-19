@@ -7,4 +7,17 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
     }
+
+    flavorDimensions "tier"
+    productFlavors {
+        free { dimension "tier" }
+        paid { dimension "tier" }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
 }
